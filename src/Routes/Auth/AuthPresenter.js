@@ -1,4 +1,5 @@
 import React from "react";
+import {Helmet} from "react-helmet";
 import styled from "styled-components";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
@@ -59,21 +60,32 @@ export default ({
   <Wrapper>
     <Form>
       {action === "logIn" && (
-        <form onSubmit={onSubmit}>
-          <Input placeholder={"Email"} {...email} type="email" />
-          <Input placeholder={"Password"} {...password} type="password" />
-          <Button text={"Log in"} />
-        </form>
+        <>
+          <Helmet>
+            <title>Selfgram | login</title>
+          </Helmet>
+
+          <form onSubmit={onSubmit}>
+            <Input placeholder={"Email"} {...email} type="email" />
+            <Input placeholder={"Password"} {...password} type="password" />
+            <Button text={"Log in"} />
+          </form>
+        </>
       )}
       {action === "signUp" && (
-        <form onSubmit={onSubmit}>
-          <Input placeholder={"Email"} {...email} />
-          <Input placeholder={"Password"} {...password} type="password" />
-          <Input placeholder={"First Name"} {...firstName} />
-          <Input placeholder={"Last Name"} {...lastName} />
-          <Input placeholder={"Username"} {...userName} />
-          <Button text={"Sign Up"} />
-        </form>
+        <>
+          <Helmet>
+            <title>Selfgram | sign Up</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Input placeholder={"Email"} {...email} />
+            <Input placeholder={"Password"} {...password} type="password" />
+            <Input placeholder={"First Name"} {...firstName} />
+            <Input placeholder={"Last Name"} {...lastName} />
+            <Input placeholder={"Username"} {...userName} />
+            <Button text={"Sign Up"} />
+          </form>
+        </>
       )}
     </Form>
     <StateChanger>

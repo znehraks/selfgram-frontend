@@ -20,6 +20,7 @@ const Header = styled.header`
   justify-content: center;
   align-items: center;
   padding: 25px 0px;
+  z-index: 2;
 `;
 
 const HeaderWrapper = styled.div`
@@ -99,7 +100,7 @@ export default withRouter(({ history }) => {
           <HeaderLink to="/notifications">
             <HeartEmpty />
           </HeaderLink>
-          {!data.me ? (
+          {data && !data.me ? (
             <HeaderLink to="/#">
               <User />
             </HeaderLink>
