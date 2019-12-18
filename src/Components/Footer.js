@@ -6,11 +6,13 @@ const Footer = styled.footer`
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+  position: fixed;
+  bottom: 0;
   font-weight: 600;
   font-size: 12px;
   margin: 50px 0px;
-  z-index: 0;
-  @media (max-width: 375px) {
+  z-index: -100;
+  @media (max-height: 700px) {
     visibility: hidden;
   }
   @media (max-height: 410px) {
