@@ -2,29 +2,15 @@ import React from "react";
 import { gql } from "apollo-boost";
 import { withRouter } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import ProfilePresenter from "./ProfilePresenter";
+import FullPostPresenter from "./FullPostPresenter";
 
-const GET_USER = gql`
-  query seeUser($userName: String!) {
-    seeUser(userName: $userName) {
+const GET_FULL_POST = gql`
+  query seePost($postId: String!) {
+    seePost(postId: $postId) {
       id
-      avatar
-      userName
-      fullName
-      isFollowing
-      isSelf
-      bio
-      followingCount
-      followersCount
-      postsCount
-      posts {
-        id
-        files {
-          url
-        }
-        likeCount
-        commentCount
-      }
+      user
+      files
+      createdAt
     }
   }
 `;

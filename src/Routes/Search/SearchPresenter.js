@@ -9,6 +9,7 @@ import SquarePost from "../../Components/SquarePost";
 const Wrapper = styled.div`
   height: 50vh;
   text-align: center;
+  margin: 0px 30px;
 `;
 
 const Section = styled.div`
@@ -24,6 +25,7 @@ const PostSection = styled(Section)`
   grid-template-columns: repeat(4, 200px);
   grid-template-rows: 200px;
   grid-auto-rows: 200px;
+  margin-bottom: 40px;
 `;
 
 const SearchPresenter = ({ searchTerm, loading, data }) => {

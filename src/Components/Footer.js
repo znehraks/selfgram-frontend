@@ -6,8 +6,8 @@ const Footer = styled.footer`
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
-  position: fixed;
-  bottom: 0;
+  position: relative;
+  bottom: -10;
   font-weight: 600;
   font-size: 12px;
   margin: 50px 0px;
@@ -25,9 +25,8 @@ const List = styled.ul`
 `;
 
 const ListItem = styled.li`
-  &:not(:last-child) {
-    margin-right: 16px;
-  }
+  margin-top: 40px;
+  margin-right: 16px;
 `;
 
 const Link = styled.a`
@@ -35,6 +34,7 @@ const Link = styled.a`
 `;
 
 const CopyRight = styled.span`
+  margin-top: 40px;
   color: ${props => props.theme.darkGreyColor};
 `;
 

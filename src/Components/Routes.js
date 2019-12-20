@@ -11,7 +11,7 @@ const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Feed}></Route>
     <Route exact path="/explore" component={Explore}></Route>
-    <Route exact path="/Search" component={Search}></Route>
+    <Route exact path="/search" component={Search}></Route>
     <Route exact path="/:userName" component={Profile}></Route>
     <Redirect from="*" to="/" />
   </Switch>

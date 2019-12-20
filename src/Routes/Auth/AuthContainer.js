@@ -46,6 +46,7 @@ export default () => {
             toast.success("Login Success");
             try {
               await localLogInMutation({ variables: { token } });
+              window.location ="/";
             } catch (e) {
               console.log(e);
               toast.error("Unexpected Error Sorry..");
