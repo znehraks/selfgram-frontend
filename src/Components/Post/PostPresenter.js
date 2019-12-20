@@ -110,6 +110,7 @@ const Caption = styled.div`
 
 export default ({
   user: { userName, avatar },
+  id,
   location,
   files,
   isLiked,
@@ -136,7 +137,13 @@ export default ({
     <Files>
       {files &&
         files.map((file, index) => (
-          <File key={file.id} src={file.url} showing={index === currentItem} />
+          <Link key={id} to={`/${id}`}>
+            <File
+              key={file.id}
+              src={file.url}
+              showing={index === currentItem}
+            />
+          </Link>
         ))}
     </Files>
     <Meta>

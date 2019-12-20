@@ -4,11 +4,12 @@ additional function
 
 -[] edit profile
 -[] delete profile
+-[] seePost(Full)
 -[] delete post
--[] DM(createRoom, createMessage etc...)
 -[] create Story
 -[] delete Story
 -[] comment Like
 -[] re reply
+-[] DM(createRoom, createMessage etc...)
 -[] who is login now
 -[] console.log => error log seperate

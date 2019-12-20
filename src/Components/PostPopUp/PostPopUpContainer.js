@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
-import PostPresenter from "./PostPresenter";
+import PostPopUpPresenter from "./PostPopUpPresenter";
 import { useMutation } from "@apollo/react-hooks";
-import { TOGGLE_LIKE, ADD_COMMENT } from "./PostQueries";
+import { TOGGLE_LIKE, ADD_COMMENT } from "./PostPopUpQueries";
 import { toast } from "react-toastify";
 import PreventSpace from "../../Functions/PreventSpace";
-
-const PostContainer = ({
+const PostPopUpContainer = ({
   id,
   user,
   files,
@@ -64,15 +63,16 @@ const PostContainer = ({
           data: { addComment }
         } = await addCommentMutation();
         setSelfComments([...selfComments, addComment]);
+        console.log(PreventSpace(comment));
         comment.setValue("");
       } catch {
-        toast.error("Can't send comment");
+        toast.error("Write a comment");
       }
     }
   };
 
   return (
-    <PostPresenter
+    <PostPopUpPresenter
       id={id}
       user={user}
       files={files}
@@ -93,7 +93,7 @@ const PostContainer = ({
   );
 };
 
-PostContainer.propTypes = {
+PostPopUpContainer.propTypes = {
   id: PropTypes.string.isRequired,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -123,4 +123,4 @@ PostContainer.propTypes = {
   createdAt: PropTypes.string.isRequired
 };
 
-export default PostContainer;
+export default PostPopUpContainer;
