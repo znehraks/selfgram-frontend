@@ -8,22 +8,29 @@ import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
 import { autoLine, commentsShow } from "../../Functions/CommentsFunction";
 
 const Wrapper = styled.div`
-  width: 100%;
+  ${props => props.theme.whiteBox};
+  width: 935px;
   height: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
   a {
     color: inherit;
   }
+  div:has(div){
+    border: none;
+    background-color: rgba(0,0,0,0);
+  }
 `;
 
 const Box = styled.div`
-  ${props => props.theme.whiteBox};
-  width: 100%;
+  width: 935px;
   height: 100%;
   justify-content: center;
   align-items: center;
-  max-width: 50%;
+  align-content: center;
+  max-width: 100%;
   min-height: 600px;
   max-height: 600px;
   user-select: none;
@@ -152,12 +159,9 @@ export default ({
   onKeyPress,
   comments,
   selfComments,
-  caption,
-  isShowing,
-  toggle
+  caption
 }) => (
   <Wrapper>
-    <Button onClick={toggle} style={{backgroundColor:"red"}}>X</Button>
     <Box>
       <Files>
         {files &&

@@ -6,6 +6,8 @@ import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
 import { autoLine, commentsShow } from "../../Functions/CommentsFunction";
+import Popup from "reactjs-popup";
+import PostPopup from "../PostPopUp";
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
@@ -109,8 +111,13 @@ const Caption = styled.div`
   margin: 10px 0px;
 `;
 
+const PopupPage = styled(Popup)`
+  border: none;
+`;
+
 export default ({
   user: { userName, avatar },
+  user,
   id,
   location,
   files,
@@ -135,18 +142,35 @@ export default ({
         <Location>{location}</Location>
       </UserColumn>
     </Header>
-    <Files>
-      <Link key={id} to={`/${id}`}>
-        {files &&
-          files.map((file, index) => (
-            <File
-              key={file.id}
-              src={file.url}
-              showing={index === currentItem}
-            />
-          ))}
-      </Link>
-    </Files>
+    <PopupPage
+      trigger={
+        <Files className="button">
+          {files &&
+            files.map((file, index) => (
+              <File
+                key={file.id}
+                src={file.url}
+                showing={index === currentItem}
+              />
+            ))}
+        </Files>
+      }
+      modal
+      closeOnDocumentClick
+    >
+      <PostPopup
+        id={id}
+        user={user}
+        files={files}
+        likeCount={likeCount}
+        isLiked={isLiked}
+        comments={comments}
+        createdAt={createdAt}
+        caption={caption}
+        location={location}
+      />
+    </PopupPage>
+
     <Meta>
       <Buttons>
         <Button onClick={toggleLike}>

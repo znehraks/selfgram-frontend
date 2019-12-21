@@ -16,5 +16,5 @@ export default {
             border-radius: ${BORDER_RADIUS};
             border: ${BOX_BORDER};
             background-color: white;
-    `
+  `
 };

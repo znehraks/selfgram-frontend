@@ -3,7 +3,7 @@ const PreventSpace = text => {
   for (let i = 0; i < text.value.length; i++) {
     textP = text.value.replace(/ /gi, "");
   }
-  if (text.value != "" && textP != "") {
+  if (text.value !== "" && textP !== "") {
     return text.value;
   } else {;
     return null;

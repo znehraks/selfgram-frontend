@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { TOGGLE_LIKE, ADD_COMMENT } from "./PostPopUpQueries";
 import { toast } from "react-toastify";
 import PreventSpace from "../../Functions/PreventSpace";
+
 const PostPopUpContainer = ({
   id,
   user,
