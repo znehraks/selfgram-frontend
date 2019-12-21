@@ -143,6 +143,11 @@ export default ({
       </UserColumn>
     </Header>
     <PopupPage
+      contentStyle={{
+        border: "none",
+        backgroundColor: "rgba(0,0,0,0)",
+        width: "935px"
+      }}
       trigger={
         <Files className="button">
           {files &&

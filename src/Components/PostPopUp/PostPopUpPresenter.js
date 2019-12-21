@@ -9,7 +9,7 @@ import { autoLine, commentsShow } from "../../Functions/CommentsFunction";
 
 const Wrapper = styled.div`
   ${props => props.theme.whiteBox};
-  width: 935px;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -18,14 +18,10 @@ const Wrapper = styled.div`
   a {
     color: inherit;
   }
-  div:has(div){
-    border: none;
-    background-color: rgba(0,0,0,0);
-  }
 `;
 
 const Box = styled.div`
-  width: 935px;
+  width: 50%;
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -34,7 +30,6 @@ const Box = styled.div`
   min-height: 600px;
   max-height: 600px;
   user-select: none;
-  margin-bottom: 25px;
   a {
     color: inherit;
   }
