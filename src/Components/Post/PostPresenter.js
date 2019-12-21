@@ -5,6 +5,7 @@ import TextareaAutosize from "react-autosize-textarea";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
+import { autoLine, commentsShow } from "../../Functions/CommentsFunction";
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
@@ -135,16 +136,16 @@ export default ({
       </UserColumn>
     </Header>
     <Files>
-      {files &&
-        files.map((file, index) => (
-          <Link key={id} to={`/${id}`}>
+      <Link key={id} to={`/${id}`}>
+        {files &&
+          files.map((file, index) => (
             <File
               key={file.id}
               src={file.url}
               showing={index === currentItem}
             />
-          </Link>
-        ))}
+          ))}
+      </Link>
     </Files>
     <Meta>
       <Buttons>
@@ -161,18 +162,12 @@ export default ({
       </Caption>
       {comments && (
         <Comments>
-          {comments.map(comment => (
-            <Comment key={comment.id}>
-              <FatText text={comment.user.userName} />
-              {comment.text}
-            </Comment>
-          ))}
-          {selfComments.map(comment => (
-            <Comment key={comment.id}>
-              <FatText text={comment.user.userName} />
-              {comment.text}
-            </Comment>
-          ))}
+          {commentsShow(comments).map(comment =>
+            autoLine(comment, comment.text, comment.text.length)
+          )}
+          {commentsShow(selfComments).map(comment =>
+            autoLine(comment, comment.text, comment.text.length)
+          )}
         </Comments>
       )}
       <Timestamp>{createdAt}</Timestamp>

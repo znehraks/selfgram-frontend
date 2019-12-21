@@ -2,10 +2,12 @@
 
 additional function
 
+-[X] seePost(Full)
+-[] seePost(PopUp)
+-[] create Post
+-[] delete post
 -[] edit profile
 -[] delete profile
--[] seePost(Full)
--[] delete post
 -[] create Story
 -[] delete Story
 -[] comment Like

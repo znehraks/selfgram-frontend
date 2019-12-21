@@ -5,7 +5,7 @@ import TextareaAutosize from "react-autosize-textarea";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
-import {autoLine, commentsShow} from "../../Functions/CommentsFunction";
+import { autoLine, commentsShow } from "../../Functions/CommentsFunction";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -152,9 +152,12 @@ export default ({
   onKeyPress,
   comments,
   selfComments,
-  caption
+  caption,
+  isShowing,
+  toggle
 }) => (
   <Wrapper>
+    <Button onClick={toggle} style={{backgroundColor:"red"}}>X</Button>
     <Box>
       <Files>
         {files &&
