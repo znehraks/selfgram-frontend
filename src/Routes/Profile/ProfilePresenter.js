@@ -7,9 +7,15 @@ import FatText from "../../Components/FatText";
 import FollowButton from "../../Components/FollowButton";
 import SquarePost from "../../Components/SquarePost";
 import Button from "../../Components/Button";
+import Input from "../../Components/Input";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Header = styled.header`
@@ -21,10 +27,12 @@ const Header = styled.header`
   margin-bottom: 40px;
 `;
 
-const HeaderColumn = styled.div``;
+const HeaderColumn = styled.div`
+`;
 
 const UserNameRow = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -61,75 +69,161 @@ const Posts = styled.div`
   grid-auto-rows: 200px;
 `;
 
-export default ({ loading, data, logOut }) => {
+const EditLink = styled(Link)`
+  font-size: 16px;
+`;
+
+const Box = styled.div`
+  ${props => props.theme.whiteBox};
+  border-radius: 0px;
+  width: 100%;
+  max-width: 400px;
+`;
+
+const Form = styled(Box)`
+  padding: 40px;
+  padding-bottom: 30px;
+  margin-bottom: 15px;
+  form {
+    width: 100%;
+    input {
+      width: 100%;
+      &:not(:last-child) {
+        margin-bottom: 7px;
+      }
+    }
+    button {
+      margin-top: 10px;
+    }
+  }
+`;
+
+const Span = styled.span`
+  font-weight: 600;
+  font-size: 16px;
+`;
+
+export default ({
+  setAction,
+  action,
+  firstName,
+  lastName,
+  password,
+  passwordConfirm,
+  onSubmit,
+  loading,
+  bioI,
+  logOut,
+  data
+}) => {
   if (loading === true) {
     return (
       <Wrapper>
         <Loader />
       </Wrapper>
     );
-  } else if (!loading && data && data.seeUser) {
-    const {
-      seeUser: {
-        id,
-        avatar,
-        userName,
-        fullName,
-        isFollowing,
-        isSelf,
-        bio,
-        followingCount,
-        followersCount,
-        postsCount,
-        posts
-      }
-    } = data;
-    return (
-      <Wrapper>
-        <Helmet>
-          <title>{userName} | Selfgram</title>
-        </Helmet>
-        <Header>
-          <HeaderColumn>
-            <Avatar size="lg" url={avatar} />
-          </HeaderColumn>
-          <HeaderColumn>
-            <UserNameRow>
-              <UserName>{userName}</UserName>{" "}
-              {isSelf ? (
-                <Button onClick={logOut} text="Log Out" />
-              ) : (
-                <FollowButton isFollowing={isFollowing} id={id} />
-              )}
-            </UserNameRow>
-            <Counts>
-              <Count>
-                <FatText text={String(postsCount)} /> posts
-              </Count>
-              <Count>
-                <FatText text={String(followersCount)} /> followers
-              </Count>
-              <Count>
-                <FatText text={String(followingCount)} /> following
-              </Count>
-            </Counts>
-            <FullName text={fullName} />
-            <Bio>{bio}</Bio>
-          </HeaderColumn>
-        </Header>
-        <Posts>
-          {posts &&
-            posts.map(post => (
-              <SquarePost
-                key={post.id}
-                likeCount={post.likeCount}
-                commentCount={post.commentCount}
-                file={post.files[0]}
-              />
-            ))}
-        </Posts>
-      </Wrapper>
-    );
+  } else if (loading === false) {
+    if (!loading && data && data.seeUser) {
+      const {
+        seeUser: {
+          id,
+          avatar,
+          userName,
+          fullName,
+          isFollowing,
+          isSelf,
+          bio,
+          followingCount,
+          followersCount,
+          postsCount,
+          posts
+        }
+      } = data;
+      return (
+        <Wrapper>
+          <>
+            <Helmet>
+              <title>{userName} | Selfgram</title>
+            </Helmet>
+            <Header>
+              <HeaderColumn>
+                <Avatar size="lg" url={avatar} />
+              </HeaderColumn>
+              <HeaderColumn>
+                <UserNameRow>
+                  <UserName>{userName}</UserName>{" "}
+                  {isSelf ? (
+                    <Button onClick={logOut} text="Log Out" />
+                  ) : (
+                    <FollowButton isFollowing={isFollowing} id={id} />
+                  )}
+                </UserNameRow>
+                <Counts>
+                  <Count>
+                    <FatText text={String(postsCount)} /> posts
+                  </Count>
+                  <Count>
+                    <FatText text={String(followersCount)} /> followers
+                  </Count>
+                  <Count>
+                    <FatText text={String(followingCount)} /> following
+                  </Count>
+                </Counts>
+                <FullName text={fullName} />
+                <Bio>{bio}</Bio>
+                {isSelf && (
+                  <EditLink
+                    onClick={() => {
+                      setAction(!action);
+                    }}
+                  >
+                    {action === true ? "Edit" : "Cancel"}
+                  </EditLink>
+                )}
+              </HeaderColumn>
+            </Header>
+            {action === true && (
+              <Posts>
+                {posts &&
+                  posts.map(post => (
+                    <SquarePost
+                      key={post.id}
+                      likeCount={post.likeCount}
+                      commentCount={post.commentCount}
+                      file={post.files[0]}
+                    />
+                  ))}
+              </Posts>
+            )}
+            {action === false && (
+              <Form>
+                <Helmet>
+                  <title>Edit | Selfgram</title>
+                </Helmet>
+                <Span>Edit Your Profile</Span>
+                <form style={{ marginTop: "20px" }} onSubmit={onSubmit}>
+                  <Input placeholder={"userName"} value={userName} readonly />
+                  <Input
+                    placeholder={"Password"}
+                    {...password}
+                    type="password"
+                  />
+                  <Input
+                    placeholder={"password Confirm"}
+                    {...passwordConfirm}
+                    type="password"
+                  />
+                  <Input placeholder={"First Name"} {...firstName} />
+                  <Input placeholder={"Last Name"} {...lastName} />
+                  <Input placeholder={"Bio"} {...bioI} />
+                  <Button text={"Apply"} />
+                </form>
+              </Form>
+            )}
+          </>
+        </Wrapper>
+      );
+    }
   }
   return null;
 };
