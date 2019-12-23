@@ -68,7 +68,7 @@ const Posts = styled.div`
   grid-auto-rows: 200px;
 `;
 
-const Link = styled.span`
+export const Link = styled.span`
   color: ${props => props.theme.blueColor};
   cursor: pointer;
 `;

@@ -23,7 +23,7 @@ const PostPopUpContainer = ({
   const [currentItem, setCurrentItem] = useState(0);
   const [selfComments, setSelfComments] = useState([]);
   const comment = useInput("");
-
+  const [fullComment, setFullComment] = useState(false);
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     variables: { postId: id }
   });
@@ -90,6 +90,8 @@ const PostPopUpContainer = ({
       toggleLike={toggleLike}
       onKeyPress={onKeyPress}
       selfComments={selfComments}
+      fullComment={fullComment}
+      setFullComment={setFullComment}
     />
   );
 };

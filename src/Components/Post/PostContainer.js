@@ -21,7 +21,8 @@ const PostContainer = ({
   const [isLikedS, setIsLiked] = useState(isLiked);
   const [likeCountS, setLikeCount] = useState(likeCount);
   const [currentItem, setCurrentItem] = useState(0);
-  const [selfComments, setSelfComments] = useState([]);
+  const [selfComments, setSelfComments] = useState(comments);
+  const [full, setFull] = useState(false);
   const comment = useInput("");
 
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
@@ -89,6 +90,8 @@ const PostContainer = ({
       toggleLike={toggleLike}
       onKeyPress={onKeyPress}
       selfComments={selfComments}
+      full={full}
+      setFull={setFull}
     />
   );
 };

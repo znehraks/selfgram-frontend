@@ -5,7 +5,7 @@ import TextareaAutosize from "react-autosize-textarea";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
-import { autoLine, commentsShow } from "../../Functions/CommentsFunction";
+import { autoLine, commentsShow } from "../../Functions/Comments";
 import Popup from "reactjs-popup";
 import PostPopup from "../PostPopUp";
 
@@ -130,7 +130,9 @@ export default ({
   onKeyPress,
   comments,
   selfComments,
-  caption
+  caption,
+  full,
+  setFull
 }) => (
   <Post>
     <Header>
@@ -148,7 +150,9 @@ export default ({
         backgroundColor: "rgba(0,0,0,0)",
         width: "935px"
       }}
-      onClose={() => {window.location ="/"}}
+      onClose={() => {
+        window.location = "/";
+      }}
       trigger={
         <Files className="button">
           {files &&
@@ -192,11 +196,8 @@ export default ({
       </Caption>
       {comments && (
         <Comments>
-          {commentsShow(comments).map(comment =>
-            autoLine(comment, comment.text, comment.text.length)
-          )}
           {commentsShow(selfComments).map(comment =>
-            autoLine(comment, comment.text, comment.text.length)
+            autoLine(comment, comment.text, comment.text.length, full, setFull)
           )}
         </Comments>
       )}

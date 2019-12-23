@@ -5,7 +5,7 @@ import TextareaAutosize from "react-autosize-textarea";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
-import { autoLine, commentsShow } from "../../Functions/CommentsFunction";
+import { autoLine, commentsShow } from "../../Functions/Comments";
 
 const Wrapper = styled.div`
   ${props => props.theme.whiteBox};
@@ -154,7 +154,9 @@ export default ({
   onKeyPress,
   comments,
   selfComments,
-  caption
+  caption,
+  fullComment={fullComment},
+  setFullComment={setFullComment}
 }) => (
   <Wrapper>
     <Box>
