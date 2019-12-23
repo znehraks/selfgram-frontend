@@ -56,6 +56,12 @@ const EDIT_USER = gql`
   }
 `;
 
+const DELETE_USER = gql`
+  mutation deleteAccount($userName: String!, $password: String!) {
+    deleteAccount(userName: $userName, password: $password)
+  }
+`;
+
 export const LOG_OUT = gql`
   mutation logUserOut {
     logUserOut @client
@@ -69,11 +75,14 @@ export default withRouter(
     }
   }) => {
     const [action, setAction] = useState(true);
+    const [mode, setMode] = useState("menu");
     const { data, loading } = useQuery(GET_USER, {
       variables: { userName }
     });
+    const email = useInput("");
     const password = useInput("");
     const passwordConfirm = useInput("");
+    const deleteConfirm = useInput("");
     const firstName = useInput("");
     const lastName = useInput("");
     const bio = useInput("");
@@ -86,14 +95,20 @@ export default withRouter(
         bio: bio.value
       }
     });
+    const [deleteUserMutation] = useMutation(DELETE_USER, {
+      variables: {
+        userName: userName,
+        password: password.value
+      }
+    });
     const [logOut] = useMutation(LOG_OUT);
 
     const onSubmit = async e => {
       e.preventDefault();
-      if (action === false) {
+      if (action === false && mode === "edit") {
         if (password.value === passwordConfirm.value) {
           try {
-            const data = editUserMutation();
+            const data = await editUserMutation();
             if (data) {
               toast.success("Success");
               setTimeout(() => window.location.reload(), 1000);
@@ -102,11 +117,27 @@ export default withRouter(
             console.log(e);
             toast.error("Can't Edit Profile");
           }
-        }else{
+        } else {
           toast.error("password and confirm aren't same");
         }
-      } else {
-        return null;
+      } else if (action === false && mode === "delete") {
+        if (
+          deleteConfirm.value === `Really Delete ${userName}` &&
+          password.value === passwordConfirm.value
+        ) {
+          try {
+            const data = await deleteUserMutation();
+            if (data) {
+              toast.success("Account Deleted Successfully!");
+              setTimeout(()=>logOut(),2000);
+            }
+          } catch (e) {
+            console.log(e);
+            toast.error("Can't Delete Account");
+          }
+        } else {
+          toast.error("please confirm again!");
+        }
       }
     };
 
@@ -114,11 +145,15 @@ export default withRouter(
       <ProfilePresenter
         setAction={setAction}
         action={action}
+        setMode={setMode}
+        mode={mode}
         userName={userName}
+        email={email}
         firstName={firstName}
         lastName={lastName}
         password={password}
         passwordConfirm={passwordConfirm}
+        deleteConfirm={deleteConfirm}
         bioI={bio}
         onSubmit={onSubmit}
         loading={loading}

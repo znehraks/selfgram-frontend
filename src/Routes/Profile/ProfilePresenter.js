@@ -8,7 +8,7 @@ import FollowButton from "../../Components/FollowButton";
 import SquarePost from "../../Components/SquarePost";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
-import { Link } from "react-router-dom";
+import { Settings, Back } from "../../Components/Icons";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -27,12 +27,11 @@ const Header = styled.header`
   margin-bottom: 40px;
 `;
 
-const HeaderColumn = styled.div`
-`;
+const HeaderColumn = styled.div``;
 
 const UserNameRow = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
 `;
 
@@ -69,9 +68,12 @@ const Posts = styled.div`
   grid-auto-rows: 200px;
 `;
 
-const EditLink = styled(Link)`
-  font-size: 16px;
+const Link = styled.span`
+  color: ${props => props.theme.blueColor};
+  cursor: pointer;
 `;
+
+const EditLink = styled(Link)``;
 
 const Box = styled.div`
   ${props => props.theme.whiteBox};
@@ -98,18 +100,39 @@ const Form = styled(Box)`
   }
 `;
 
+const LinkBack = styled(Link)`
+  margin-left: 170px;
+`;
+
 const Span = styled.span`
   font-weight: 600;
   font-size: 16px;
+  margin-bottom: 12px;
+`;
+
+const SettingList = styled.ul`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: ${props => props.theme.boxBorder};
+`;
+
+const SettingListItem = styled.li`
+  font-size: 20px;
+  padding: 10px 0px;
 `;
 
 export default ({
   setAction,
   action,
+  setMode,
+  mode,
+  email,
   firstName,
   lastName,
   password,
   passwordConfirm,
+  deleteConfirm,
   onSubmit,
   loading,
   bioI,
@@ -152,10 +175,21 @@ export default ({
               <HeaderColumn>
                 <UserNameRow>
                   <UserName>{userName}</UserName>{" "}
-                  {isSelf ? (
-                    <Button onClick={logOut} text="Log Out" />
-                  ) : (
+                  {!isSelf && (
                     <FollowButton isFollowing={isFollowing} id={id} />
+                  )}
+                  {isSelf && (
+                    <EditLink
+                      onClick={() => {
+                        setAction(!action);
+                      }}
+                    >
+                      {action === true ? (
+                        <Settings />
+                      ) : (
+                        <Back style={{ marginLeft: "5px" }} />
+                      )}
+                    </EditLink>
                   )}
                 </UserNameRow>
                 <Counts>
@@ -171,15 +205,6 @@ export default ({
                 </Counts>
                 <FullName text={fullName} />
                 <Bio>{bio}</Bio>
-                {isSelf && (
-                  <EditLink
-                    onClick={() => {
-                      setAction(!action);
-                    }}
-                  >
-                    {action === true ? "Edit" : "Cancel"}
-                  </EditLink>
-                )}
               </HeaderColumn>
             </Header>
             {action === true && (
@@ -195,14 +220,34 @@ export default ({
                   ))}
               </Posts>
             )}
-            {action === false && (
+            {action === false && mode === "menu" && (
+              <>
+                <Span>Settings</Span>
+                <Box>
+                  <SettingList>
+                    <SettingListItem>
+                      <Link onClick={() => setMode("edit")}>Edit Profile</Link>
+                    </SettingListItem>
+                  </SettingList>
+                  <SettingList>
+                    <SettingListItem>
+                      <Link onClick={() => setMode("delete")}>
+                        Delete Profile
+                      </Link>
+                    </SettingListItem>
+                  </SettingList>
+                </Box>
+              </>
+            )}
+            {action === false && mode === "edit" && (
               <Form>
                 <Helmet>
                   <title>Edit | Selfgram</title>
                 </Helmet>
                 <Span>Edit Your Profile</Span>
+                <LinkBack onClick={() => setMode("menu")}>back</LinkBack>
                 <form style={{ marginTop: "20px" }} onSubmit={onSubmit}>
-                  <Input placeholder={"userName"} value={userName} readonly />
+                  <Input placeholder={"userName"} value={userName} onChange={()=>null} readonly />
                   <Input
                     placeholder={"Password"}
                     {...password}
@@ -217,6 +262,32 @@ export default ({
                   <Input placeholder={"Last Name"} {...lastName} />
                   <Input placeholder={"Bio"} {...bioI} />
                   <Button text={"Apply"} />
+                </form>
+              </Form>
+            )}
+            {action === false && mode === "delete" && (
+              <Form>
+                <Helmet>
+                  <title>Delete | Selfgram</title>
+                </Helmet>
+                <Span>Really Delete..?</Span>
+                <LinkBack onClick={() => setMode("menu")}>back</LinkBack>
+                <form style={{ marginTop: "20px" }} onSubmit={onSubmit}>
+                  <Input
+                    placeholder={`write down "Really Delete ${userName}"`}
+                    {...deleteConfirm}
+                  />
+                  <Input
+                    placeholder={"Password"}
+                    {...password}
+                    type="password"
+                  />
+                  <Input
+                    placeholder={"password Confirm"}
+                    {...passwordConfirm}
+                    type="password"
+                  />
+                  <Button text={"Delete"} />
                 </form>
               </Form>
             )}

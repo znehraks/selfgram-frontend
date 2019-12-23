@@ -5,7 +5,7 @@ additional function
 -[X] seePost(Full)
 -[X] seePost(PopUp)
 -[X] edit profile(updateUser)
--[] delete profile(deleteUser && editprofile add)
+-[X] delete profile(deleteUser && editprofile add)
 -[] comment Like
 -[] re reply
 -[] DM(createRoom, createMessage etc...)

@@ -54,6 +54,8 @@ export default () => {
             setTimeout(() => null, 2000);
           }
         } catch (e) {
+          toast.error("You don't have an account, create one!");
+            setTimeout(() => setAction("signUp"), 3000)
           console.log(e.message);
         }
       } else {
