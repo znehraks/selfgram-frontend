@@ -6,6 +6,9 @@ additional function
 -[X] seePost(PopUp)
 -[X] edit profile(updateUser)
 -[X] delete profile(deleteUser && editprofile add)
+
+--------[]Comment Refactor seperate Component--------
+
 -[] comment Like
 -[] re reply
 -[] DM(createRoom, createMessage etc...)

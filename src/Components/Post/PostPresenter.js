@@ -5,7 +5,7 @@ import TextareaAutosize from "react-autosize-textarea";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
-import { autoLine, commentsShow } from "../../Functions/Comments";
+import { commentsShow } from "../../Functions/Comments";
 import Popup from "reactjs-popup";
 import PostPopup from "../PostPopUp";
 
@@ -196,9 +196,21 @@ export default ({
       </Caption>
       {comments && (
         <Comments>
-          {commentsShow(selfComments).map(comment =>
-            autoLine(comment, comment.text, comment.text.length, full, setFull)
-          )}
+          {commentsShow(selfComments).map(comment => (
+            <Comment key={comment.id}>
+              <FatText text={comment.user.userName} />
+              {comment.text.length > 50 && comment.text.slice(0, 49) ? (
+                <Link onClick={() => setFull(!full)}>
+                  {full === false && "more..."}
+                </Link>
+              ) : (
+                <span>{comment.text}</span>
+              )}
+              <span>
+                {full === true && comment.text.slice(50, comment.length)}
+              </span>
+            </Comment>
+          ))}
         </Comments>
       )}
       <Timestamp>{createdAt}</Timestamp>
