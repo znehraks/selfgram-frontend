@@ -52,7 +52,8 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  min-height: 100vh;
+  align-items: center;
+  min-height: 80vh;
 `;
 
 const PostWrapper = styled.div`
@@ -60,9 +61,13 @@ const PostWrapper = styled.div`
   flex-direction: column;
   width: 66%;
   align-items: center;
-  min-height: 200vh;
+  min-height: 80vh;
   @media (min-width: 1000px) {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
@@ -75,8 +80,11 @@ const UserWrapper = styled.div`
   min-width: 200px;
   margin-left: 150px;
   @media (max-width: 1000px) {
+    width: 0;
     visibility: hidden;
-    width: 0%;
+    margin: 0;
+    padding: 0;
+    display: none;
   }
 `;
 

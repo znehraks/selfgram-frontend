@@ -49,7 +49,7 @@ const Files = styled.div`
 const File = styled.div`
   max-width: 100%;
   width: 100%;
-  height: 600px;
+  height: 85%;
   position: absolute;
   top: 0;
   background-image: url(${props => props.src});
