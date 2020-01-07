@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import {Link as LinkB} from "../../Routes/Profile/ProfilePresenter";
 import TextareaAutosize from "react-autosize-textarea";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
@@ -63,6 +64,7 @@ const Button = styled.span`
 `;
 
 const Meta = styled.div`
+  margin-top: 30px;
   padding: 15px;
 `;
 
@@ -113,6 +115,10 @@ const Caption = styled.div`
 
 const PopupPage = styled(Popup)`
   border: none;
+`;
+
+const LinkC = styled(LinkB)`
+  color: inherit;
 `;
 
 export default ({
@@ -200,9 +206,10 @@ export default ({
             <Comment key={comment.id}>
               <FatText text={comment.user.userName} />
               {comment.text.length > 50 && comment.text.slice(0, 49) ? (
-                <Link onClick={() => setFull(!full)}>
+                <LinkC onClick={() => setFull(!full)}>
+                  {comment.text.slice(0, 49)}
                   {full === false && "more..."}
-                </Link>
+                </LinkC>
               ) : (
                 <span>{comment.text}</span>
               )}

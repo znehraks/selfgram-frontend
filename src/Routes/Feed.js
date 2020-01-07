@@ -5,6 +5,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import Loader from "../Components/Loader";
 import Post from "../Components/Post";
+import LiveUser from "../Components/LiveUser";
 
 const FEED_QUERY = gql`
   {
@@ -36,39 +37,121 @@ const FEED_QUERY = gql`
   }
 `;
 
+const USER_QUERY = gql`
+  {
+    seeLoginUser {
+      id
+      userName
+      avatar
+      updatedAt
+    }
+  }
+`;
+
 const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+`;
+
+const PostWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 66%;
+  align-items: center;
+  min-height: 200vh;
+  @media (min-width: 1000px) {
+    width: 100%;
+  }
+`;
+
+const UserWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 80vh;
+  width: 33%;
+  height: 100%;
+  min-width: 200px;
+  margin-left: 150px;
+  @media (max-width: 1000px) {
+    visibility: hidden;
+    width: 0%;
+  }
+`;
+
+const UserWrapperHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+  border: ${props => props.theme.boxBorder};
+  border-bottom: none;
+  background-color: white;
+`;
+
+const Span = styled.span`
+  color: ${props => props.theme.blackColor};
+  font-size: 16px;
+  font-weight: 600;
 `;
 
 export default () => {
-  const { data, loading } = useQuery(FEED_QUERY);
-  console.log(data);
+  const feedQuery = useQuery(FEED_QUERY);
+  const postData = feedQuery.data;
+  const postLoading = feedQuery.loading;
+  console.log(postData);
+
+  const userQuery = useQuery(USER_QUERY);
+  const userData = userQuery.data;
+  const userLoading = userQuery.loading;
+  console.log(userData);
+
   return (
-    <Wrapper>
-      <Helmet>
-        <title>Feed | Selfgram</title>
-      </Helmet>
-      {loading && <Loader />}
-      {!loading &&
-        data &&
-        data.seeFeed &&
-        data.seeFeed.map(post => (
-          <Post
-            key={post.id}
-            id={post.id}
-            location={post.location}
-            caption={post.caption}
-            user={post.user}
-            files={post.files}
-            likeCount={post.likeCount}
-            isLiked={post.isLiked}
-            comments={post.comments}
-            createdAt={post.createdAt}
-          />
-        ))}
-    </Wrapper>
+    <>
+      {(postLoading || userLoading) && <Loader />}
+      <Wrapper>
+        <PostWrapper>
+          <Helmet>
+            <title>Feed | Selfgram</title>
+          </Helmet>
+          {!postLoading &&
+            postData &&
+            postData.seeFeed &&
+            postData.seeFeed.map(post => (
+              <Post
+                key={post.id}
+                id={post.id}
+                location={post.location}
+                caption={post.caption}
+                user={post.user}
+                files={post.files}
+                likeCount={post.likeCount}
+                isLiked={post.isLiked}
+                comments={post.comments}
+                createdAt={post.createdAt}
+              />
+            ))}
+        </PostWrapper>
+        <UserWrapper>
+          {!userLoading && (
+            <UserWrapperHeader>
+              <Span>NowLogin</Span>
+            </UserWrapperHeader>
+          )}
+          {!userLoading &&
+            userData &&
+            userData.seeLoginUser &&
+            userData.seeLoginUser.map(user => (
+              <LiveUser
+                key={user.id}
+                id={user.id}
+                userName={user.userName}
+                avatar={user.avatar}
+              />
+            ))}
+        </UserWrapper>
+      </Wrapper>
+    </>
   );
 };

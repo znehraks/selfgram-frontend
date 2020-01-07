@@ -155,8 +155,8 @@ export default ({
   comments,
   selfComments,
   caption,
-  full = { full },
-  setFull = { setFull }
+  full,
+  setFull
 }) => (
   <Wrapper>
     <Box>
@@ -202,6 +202,7 @@ export default ({
                   <FatText text={comment.user.userName} />
                   {comment.text.length > 50 && comment.text.slice(0, 49) ? (
                     <Link onClick={() => setFull(!full)}>
+                      {comment.text.slice(0, 49)}
                       {full === false && "more..."}
                     </Link>
                   ) : (

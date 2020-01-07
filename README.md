@@ -6,14 +6,12 @@ additional function
 -[X] seePost(PopUp)
 -[X] edit profile(updateUser)
 -[X] delete profile(deleteUser && editprofile add)
-
+-[X] logOut State
 --------[]Comment Refactor seperate Component--------
 
--[] comment Like
--[] re reply
--[] DM(createRoom, createMessage etc...)
--[] who is login now
--[] console.log => error log seperate
+-[/] comment Like
+-[/] re reply
+-[X] who is login now
 
 --------After Application--------
 
@@ -21,3 +19,5 @@ additional function
 -[] delete post(deletePostItem)
 -[] create Story(createStoryItem)
 -[] delete Story(deleteStoryItem)
+-[] upload video
+-[] console.log => error log seperate

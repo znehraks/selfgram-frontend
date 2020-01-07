@@ -68,6 +68,12 @@ export const LOG_OUT = gql`
   }
 `;
 
+const STATE_LOGOUT = gql`
+  mutation logout($userName: String!) {
+    logout(userName: $userName)
+  }
+`;
+
 export default withRouter(
   ({
     match: {
@@ -101,7 +107,15 @@ export default withRouter(
         password: password.value
       }
     });
-    const [logOut] = useMutation(LOG_OUT);
+    const [logOutMutation] = useMutation(LOG_OUT);
+    const [stateLogoutMutation] = useMutation(STATE_LOGOUT, {
+      variables: { userName }
+    });
+
+    const logOut = () => {
+      stateLogoutMutation();
+      logOutMutation();
+    }
 
     const onSubmit = async e => {
       e.preventDefault();
@@ -129,7 +143,8 @@ export default withRouter(
             const data = await deleteUserMutation();
             if (data) {
               toast.success("Account Deleted Successfully!");
-              setTimeout(()=>logOut(),2000);
+              stateLogoutMutation();
+              setTimeout(() => logOutMutation(), 2000);
             }
           } catch (e) {
             console.log(e);

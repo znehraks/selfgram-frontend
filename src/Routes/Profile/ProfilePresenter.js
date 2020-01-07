@@ -38,7 +38,7 @@ const UserNameRow = styled.div`
 const UserName = styled.span`
   font-size: 26px;
   display: block;
-  margin-right: 30px;
+  margin-right: 15px;
 `;
 
 const Counts = styled.ul`
@@ -73,7 +73,9 @@ export const Link = styled.span`
   cursor: pointer;
 `;
 
-const EditLink = styled(Link)``;
+const EditLink = styled(Link)`
+  margin-left: 15px;
+`;
 
 const Box = styled.div`
   ${props => props.theme.whiteBox};
@@ -127,7 +129,6 @@ export default ({
   action,
   setMode,
   mode,
-  email,
   firstName,
   lastName,
   password,
@@ -179,17 +180,20 @@ export default ({
                     <FollowButton isFollowing={isFollowing} id={id} />
                   )}
                   {isSelf && (
-                    <EditLink
-                      onClick={() => {
-                        setAction(!action);
-                      }}
-                    >
-                      {action === true ? (
-                        <Settings />
-                      ) : (
-                        <Back style={{ marginLeft: "5px" }} />
-                      )}
-                    </EditLink>
+                    <>
+                      <Button onClick={logOut} text="Log out"></Button>
+                      <EditLink
+                        onClick={() => {
+                          setAction(!action);
+                        }}
+                      >
+                        {action === true ? (
+                          <Settings />
+                        ) : (
+                          <Back style={{ marginLeft: "5px" }} />
+                        )}
+                      </EditLink>
+                    </>
                   )}
                 </UserNameRow>
                 <Counts>
@@ -247,7 +251,12 @@ export default ({
                 <Span>Edit Your Profile</Span>
                 <LinkBack onClick={() => setMode("menu")}>back</LinkBack>
                 <form style={{ marginTop: "20px" }} onSubmit={onSubmit}>
-                  <Input placeholder={"userName"} value={userName} onChange={()=>null} readonly />
+                  <Input
+                    placeholder={"userName"}
+                    value={userName}
+                    onChange={() => null}
+                    readonly
+                  />
                   <Input
                     placeholder={"Password"}
                     {...password}
