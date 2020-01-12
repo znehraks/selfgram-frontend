@@ -51,16 +51,14 @@ const USER_QUERY = gql`
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 80vh;
 `;
 
 const PostWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 66%;
   align-items: center;
+  width: 66%;
   min-height: 80vh;
   @media (min-width: 1000px) {
     width: 100%;
@@ -74,7 +72,6 @@ const PostWrapper = styled.div`
 const UserWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   width: 33%;
   height: 100%;
