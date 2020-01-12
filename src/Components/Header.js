@@ -77,7 +77,7 @@ export default withRouter(({ history }) => {
       <HeaderWrapper>
         <HeaderColumn>
           <Link to="/">
-            <Logo />
+            <Logo onClick={() => (window.location = "/")} />
           </Link>
         </HeaderColumn>
         <HeaderColumn>
