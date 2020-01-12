@@ -74,6 +74,7 @@ const PostWrapper = styled.div`
 const UserWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: top;
   align-items: center;
   width: 33%;
   height: 100%;
