@@ -75,7 +75,7 @@ export default () => {
           } = await createAccountMutation();
           console.log(createAccount);
           if (!createAccount) {
-            toast.error("Can't create Account");
+            toast.error("Email/userName already exist!");
           } else {
             toast.success("Account created! Log In now");
             setTimeout(() => setAction("logIn"), 3000);
