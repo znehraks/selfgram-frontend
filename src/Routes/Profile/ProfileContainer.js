@@ -21,11 +21,32 @@ const GET_USER = gql`
       postsCount
       posts {
         id
+        location
+        caption
+        likes{
+          id
+        }
+        user{
+          id
+          userName
+          avatar
+        }
+        isLiked
+        comments{
+          id
+          text
+          user{
+            id
+            userName
+          }
+        }
         files {
+          id
           url
         }
         likeCount
         commentCount
+        createdAt
       }
     }
   }

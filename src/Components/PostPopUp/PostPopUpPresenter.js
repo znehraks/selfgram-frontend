@@ -68,8 +68,9 @@ const File = styled.div`
   position: absolute;
   top: 0;
   background-image: url(${props => props.src});
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   opacity: ${props => (props.showing ? 1 : 0)};
   transition: opacity 0.5s linear;
 `;

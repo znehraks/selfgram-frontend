@@ -217,6 +217,15 @@ export default ({
                   posts.map(post => (
                     <SquarePost
                       key={post.id}
+                      id={post.id}
+                      user={post.user}
+                      files={post.files}
+                      likeCount={post.likeCount}
+                      isLiked={post.isLiked}
+                      comments={post.comments}
+                      createdAt={post.createdAt}
+                      caption={post.caption}
+                      location={post.location}
                       likeCount={post.likeCount}
                       commentCount={post.commentCount}
                       file={post.files[0]}

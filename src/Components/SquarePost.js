@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { HeartFull, CommentFull } from "./Icons";
+import Popup from "reactjs-popup";
+import PostPopup from "./PostPopUp";
 
 const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
@@ -42,19 +44,61 @@ const NumberText = styled.span`
   font-size: 16px;
 `;
 
-const SquarePost = ({ likeCount, commentCount, file }) => (
-  <Container bg={file.url}>
-    <Overlay>
-      <Number>
-        <HeartFull />
-        <NumberText>{likeCount}</NumberText>
-      </Number>
-      <Number>
-        <CommentFull />
-        <NumberText>{commentCount}</NumberText>
-      </Number>
-    </Overlay>
-  </Container>
+const PopupPage = styled(Popup)`
+  border: none;
+`;
+
+const SquarePost = ({
+  id,
+  user,
+  files,
+  isLiked,
+  comments,
+  createdAt,
+  caption,
+  location,
+  likeCount,
+  commentCount,
+  file
+}) => (
+  <PopupPage
+    contentStyle={{
+      border: "none",
+      backgroundColor: "rgba(0,0,0,0)",
+      width: "935px"
+    }}
+    onClose={() => {
+      window.location.reload();
+    }}
+    trigger={
+      <Container className="button" bg={file.url}>
+        <Overlay>
+          <Number>
+            <HeartFull />
+            <NumberText>{likeCount}</NumberText>
+          </Number>
+          <Number>
+            <CommentFull />
+            <NumberText>{commentCount}</NumberText>
+          </Number>
+        </Overlay>
+      </Container>
+    }
+    modal
+    closeOnDocumentClick
+  >
+    <PostPopup
+      id={id}
+      user={user}
+      files={files}
+      likeCount={likeCount}
+      isLiked={isLiked}
+      comments={comments}
+      createdAt={createdAt}
+      caption={caption}
+      location={location}
+    />
+  </PopupPage>
 );
 
 SquarePost.propTypes = {

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import {Link as LinkB} from "../../Routes/Profile/ProfilePresenter";
+import { Link as LinkB } from "../../Routes/Profile/ProfilePresenter";
 import TextareaAutosize from "react-autosize-textarea";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
@@ -158,7 +158,7 @@ export default ({
         width: "935px"
       }}
       onClose={() => {
-        window.location = "/";
+        window.location.reload();
       }}
       trigger={
         <Files className="button">
