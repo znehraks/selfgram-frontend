@@ -1,7 +1,13 @@
 import { gql } from "apollo-boost";
 
-export const TOGGLE_FOLLOW = gql`
-  mutation toggleFollow($followId: String!) {
-    toggleFollow(followId: $followId)
+export const FOLLOW = gql`
+  mutation follow($id: String!) {
+    follow(id: $id)
+  }
+`;
+
+export const UNFOLLOW = gql`
+  mutation unfollow($id: String!) {
+    unfollow(id: $id)
   }
 `;
